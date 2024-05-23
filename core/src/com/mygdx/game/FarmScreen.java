@@ -1,8 +1,22 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class FarmScreen implements Screen {
+	
+	final FarmingSimulator game;
+	
+	OrthographicCamera camera;
+	
+	public FarmScreen(final FarmingSimulator game) {
+		this.game = game;
+
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 800, 480);
+	}
+	
+	
 
 	@Override
 	public void show() {

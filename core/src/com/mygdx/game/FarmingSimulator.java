@@ -13,7 +13,7 @@ public class FarmingSimulator extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-		this.setScreen(new FarmScreen());
+		this.setScreen(new FarmScreen(this));
 	}
 
 	@Override
