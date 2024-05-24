@@ -14,13 +14,16 @@ public abstract class Crop {
 	protected final double GROW_CHANCE;
 	protected boolean readyToHarvest;
 	
+	protected final int WORTH;
+	
 	protected float time = 0;
 	protected final double STAGE_INTERVAL = 1.5;
 	
-	public Crop(Texture texture, double growChance) {
+	public Crop(Texture texture, double growChance, int worth) {
 		this.texture = texture;
 		growthStage = 0;
 		GROW_CHANCE = growChance;
+		WORTH = worth;
 		readyToHarvest = false;
 		
 		costumes = new TextureRegion[harvestStage];
@@ -34,7 +37,7 @@ public abstract class Crop {
 		if(time > STAGE_INTERVAL) {
 			double dice = Math.random();
 			if(dice > GROW_CHANCE) {
-				
+				nextCostume();
 			}
 			
 		}
@@ -56,6 +59,11 @@ public abstract class Crop {
 	public int getGrowthStage() {
 		return growthStage;
 	}
+	
+	public int getWorth() {
+		return WORTH;
+	}
+	
 	
 	
 	

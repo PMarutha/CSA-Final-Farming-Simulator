@@ -7,10 +7,17 @@ public class Wheat extends Crop {
 
 	private static Texture texture = new Texture(Gdx.files.internal("Wheat.png"));
 	private static final double growChance = 0.2;
+	private static final int worth = 100;
 
 	public Wheat() {
-		super(texture , growChance);
+		super(texture , growChance, worth);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String toString() {
+		return "wheat";
+	}
+	
+	
 
 }
