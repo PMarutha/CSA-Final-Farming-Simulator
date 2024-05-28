@@ -2,12 +2,15 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public abstract class Crop {
 	protected Texture texture;
 	protected TextureRegion costumes[];
+	protected Animation growthAnimation;
 	
 	protected int growthStage;
 	protected final int harvestStage = 7;
@@ -16,7 +19,7 @@ public abstract class Crop {
 	
 	protected final int WORTH;
 	
-	protected float time = 0;
+	protected float elapsedTime = 0;
 	protected final double STAGE_INTERVAL = 1.5;
 	
 	public Crop(Texture texture, double growChance, int worth) {
@@ -30,19 +33,22 @@ public abstract class Crop {
 		
 		TextureRegion[][] tmpFrames = TextureRegion.split(texture, 32, 32);
         System.arraycopy(tmpFrames[0], 0, costumes, 0, harvestStage + 1);
+        
+        growthAnimation = new Animation(1/3f, (Object[])tmpFrames);
 	}
 	
-	public void grow() {
-		time += TimeUtils.nanoTime();
-		if(time > STAGE_INTERVAL) {
+	public void update(float delta) {
+		elapsedTime += Gdx.graphics.getDeltaTime();
+		if(elapsedTime > STAGE_INTERVAL) {
 			double dice = Math.random();
 			if(dice > GROW_CHANCE) {
 				nextCostume();
 			}
-			
 		}
 		
 	}
+	
+	// move to either landplot or farmgrid class
 	
 	public void nextCostume() {
 		growthStage++;		
@@ -63,6 +69,10 @@ public abstract class Crop {
 	public int getWorth() {
 		return WORTH;
 	}
+	
+	public void draw(Batch batch, float x, float y, float width, float height) {
+        batch.draw(getTexture(), x, y, width, height);
+    }
 	
 	
 	
