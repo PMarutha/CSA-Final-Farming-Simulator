@@ -19,6 +19,8 @@ public class FarmScreen implements Screen {
 		camera.setToOrtho(false, 800, 480);
 	}
 	
+	Grid myGrid = new Grid(6, 6);
+	
 	
 
 	@Override
@@ -34,10 +36,10 @@ public class FarmScreen implements Screen {
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
 		
+		myGrid.update(delta);
+		
 		game.batch.begin();
-
-		
-		
+		myGrid.draw(game.batch);
 		game.batch.end();
 
 	}

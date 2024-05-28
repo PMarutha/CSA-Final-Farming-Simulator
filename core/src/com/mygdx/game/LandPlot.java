@@ -38,6 +38,13 @@ public class LandPlot {
 		return col;
 	}
 	
+	public void update(float delta) {
+		if(crop != null) {
+			crop.update(delta);
+		}
+	}
+	
+	
 	public void draw(Batch batch) {
 		batch.draw(texture, row, col, 32, 32); // CHANGE??????????
 		if(crop != null) {

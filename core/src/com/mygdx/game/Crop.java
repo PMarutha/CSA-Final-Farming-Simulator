@@ -48,7 +48,6 @@ public abstract class Crop {
 		
 	}
 	
-	// move to either landplot or farmgrid class
 	
 	public void nextCostume() {
 		growthStage++;		
