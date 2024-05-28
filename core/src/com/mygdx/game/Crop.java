@@ -34,7 +34,7 @@ public abstract class Crop {
 		TextureRegion[][] tmpFrames = TextureRegion.split(texture, 32, 32);
         System.arraycopy(tmpFrames[0], 0, costumes, 0, harvestStage + 1);
         
-        growthAnimation = new Animation(1/3f, (Object[])tmpFrames);
+        //growthAnimation = new Animation(1/3f, (Object[])tmpFrames);
 	}
 	
 	public void update(float delta) {
