@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Carrot extends Crop {
 	
-	private static Texture texture = new Texture(Gdx.files.internal("Carrot.png"));
+	private static Texture texture = new Texture(Gdx.files.internal("Growth.png"));
 	private static final double growChance = 0.7;
 	private static final int worth = 300;
 	

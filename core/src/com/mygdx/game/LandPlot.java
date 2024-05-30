@@ -11,7 +11,7 @@ public class LandPlot {
 	
 	public LandPlot(int r, int c) {
 		this.crop = null;
-		texture = new Texture(Gdx.files.internal("PLACEHOLDER"));
+		texture = new Texture(Gdx.files.internal("Minecraft-Dirt-Block 32x32.jpg"));
 		row = r;
 		col = c;
 	}
@@ -46,7 +46,7 @@ public class LandPlot {
 	
 	
 	public void draw(Batch batch) {
-		batch.draw(texture, row, col, 32, 32); // CHANGE??????????
+		batch.draw(texture, 259+50*(col) , 99+50*(row), 32, 32); // CHANGE??????????
 		if(crop != null) {
 			crop.draw(batch, row, col, 32 * 0.4f, 32 * 0.4f); // AND THIS.
 		}

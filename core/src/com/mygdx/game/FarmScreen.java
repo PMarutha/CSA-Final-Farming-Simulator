@@ -32,7 +32,8 @@ public class FarmScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		ScreenUtils.clear(0, 0, 0.2f, 1);
+		//ScreenUtils.clear(0f, 0f, 0f, 1);
+		ScreenUtils.clear(0.29f, 0.70f, 0.4f, 1);
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
 		

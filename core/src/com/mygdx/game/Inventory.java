@@ -3,24 +3,31 @@ package com.mygdx.game;
 import java.util.ArrayList;;
 
 public class Inventory {
-	private ArrayList<String> slots;
+	private Crop[] slots;
+	private int[] quantities;
 	private int activeSlot;
 	
 	public Inventory() {
 		activeSlot = 0;
-		slots = new ArrayList<String>();
-		slots.add(null);
-		slots.add("wheat");
-		slots.add("potato");
-		slots.add("carrot");
+		Crop[] slots = {null, new Wheat(), new Carrot()};
+		int[] quantities = {0, 0, 0};
+
 	}
 	
-	public int nextSlot() {
-		return activeSlot = (activeSlot + 1) % slots.size();
+	public void nextSlot() {
+		activeSlot = (activeSlot + 1) % slots.length;
 	}
 	
-	public int previousSlot() {
-		return activeSlot = (activeSlot - 1 + slots.size()) % slots.size();
+	public void previousSlot() {
+		activeSlot = (activeSlot - 1 + slots.length) % slots.length;
+	}
+	
+	public Crop getActiveItem() {
+		return slots[activeSlot];
+	}
+	
+	public void addSeeds(int index) {
+		
 	}
 	
 

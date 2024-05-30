@@ -36,6 +36,14 @@ public class Grid {
 		}
 	}
 	
+	public int getRows() {
+		return landRows;
+	}
+	
+	public int getCols() {
+		return landCols;
+	}
+	
 	
 	
 
