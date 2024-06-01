@@ -44,6 +44,10 @@ public class Grid {
 		return landCols;
 	}
 	
+	public LandPlot[][] getGrid() {
+		return land;
+	}
+	
 	
 	
 

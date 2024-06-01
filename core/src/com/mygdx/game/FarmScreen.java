@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -10,6 +11,11 @@ public class FarmScreen implements Screen {
 	
 	OrthographicCamera camera;
 	
+	Grid myGrid;
+	Inventory inventory;
+	
+	
+	
 	
 	
 	public FarmScreen(final FarmingSimulator game) {
@@ -17,9 +23,11 @@ public class FarmScreen implements Screen {
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
+		
+		myGrid = new Grid(6,6);
+		inventory = new Inventory();
 	}
 	
-	Grid myGrid = new Grid(6, 6);
 	
 	
 
@@ -31,8 +39,6 @@ public class FarmScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		//ScreenUtils.clear(0f, 0f, 0f, 1);
 		ScreenUtils.clear(0.29f, 0.70f, 0.4f, 1);
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
@@ -42,7 +48,19 @@ public class FarmScreen implements Screen {
 		game.batch.begin();
 		myGrid.draw(game.batch);
 		game.batch.end();
-
+		
+		if(Gdx.input.justTouched()) {
+			for(LandPlot[] landRow : myGrid.getGrid()) {
+				for(LandPlot plot : landRow) {
+					if(plot.contains(Gdx.input.getX(), Gdx.input.getY()) && plot.isEmpty()) {
+						plot.plantCrop(new Wheat());
+					}
+				}
+				
+			}
+		}
+		
+		
 	}
 
 	@Override

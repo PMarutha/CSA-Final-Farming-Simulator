@@ -10,17 +10,19 @@ import com.badlogic.gdx.utils.TimeUtils;
 public abstract class Crop {
 	protected Texture texture;
 	protected TextureRegion costumes[];
-	protected Animation growthAnimation;
+	
+	protected Animation<TextureRegion> animation;
 	
 	protected int growthStage;
-	protected final int harvestStage = 7;
+	protected int maxIndex;
+	protected final int harvestStage = 6;
 	protected final double GROW_CHANCE;
 	protected boolean readyToHarvest;
 	
 	protected final int WORTH;
 	
-	protected float elapsedTime = 0;
-	protected final double STAGE_INTERVAL = 1.5;
+	protected float lastUpdateTime = TimeUtils.nanoTime();
+	protected final double STAGE_INTERVAL = 1000000000;
 	
 	public Crop(Texture texture, double growChance, int worth) {
 		this.texture = texture;
@@ -32,25 +34,27 @@ public abstract class Crop {
 		costumes = new TextureRegion[harvestStage];
 		
 		TextureRegion[][] tmpFrames = TextureRegion.split(texture, 32, 32);
-        System.arraycopy(tmpFrames[0], 0, costumes, 0, harvestStage + 1);
+        System.arraycopy(tmpFrames[0], 0, costumes, 0, harvestStage);
         
         //growthAnimation = new Animation(1/3f, (Object[])tmpFrames);
 	}
 	
 	public void update(float delta) {
-		elapsedTime += Gdx.graphics.getDeltaTime();
-		if(elapsedTime > STAGE_INTERVAL) {
+		if(TimeUtils.nanoTime() - lastUpdateTime > STAGE_INTERVAL) {
 			double dice = Math.random();
 			if(dice > GROW_CHANCE) {
 				nextCostume();
 			}
+			lastUpdateTime = TimeUtils.nanoTime();
 		}
-		
 	}
 	
 	
 	public void nextCostume() {
-		growthStage++;		
+		growthStage++;	
+		if (growthStage > harvestStage - 1) {
+			growthStage = harvestStage - 1;
+		}
 	}
 	
 	public boolean readyToHarvest() {

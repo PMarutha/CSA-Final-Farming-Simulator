@@ -44,11 +44,15 @@ public class LandPlot {
 		}
 	}
 	
+	public boolean contains(int x, int y) {
+		return ((x-259)%50 <= 32 && x < 542 && (y-99) % 50 <=32 && y<381);
+	}
+	
 	
 	public void draw(Batch batch) {
-		batch.draw(texture, 259+50*(col) , 99+50*(row), 32, 32); // CHANGE??????????
+		batch.draw(texture, 259+50*(col) , 99+50*(row), 32, 32); // aiden math
 		if(crop != null) {
-			crop.draw(batch, row, col, 32 * 0.4f, 32 * 0.4f); // AND THIS.
+			crop.draw(batch, 259+50*(col) , 99+50*(row), 32, 32); // CHANGE THIS.
 		}
 	}
 	
