@@ -1,18 +1,24 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class FarmScreen implements Screen {
 	
 	final FarmingSimulator game;
 	
 	OrthographicCamera camera;
+	Viewport viewport;
 	
 	Grid myGrid;
 	Inventory inventory;
+	
 	
 	
 	
@@ -23,6 +29,8 @@ public class FarmScreen implements Screen {
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
+		
+		viewport = new FitViewport(800, 480, camera);
 		
 		myGrid = new Grid(6,6);
 		inventory = new Inventory();
@@ -47,26 +55,33 @@ public class FarmScreen implements Screen {
 		
 		game.batch.begin();
 		myGrid.draw(game.batch);
+		inventory.draw(game.batch, 335, -50, 192, 192);
 		game.batch.end();
 		
 		if(Gdx.input.justTouched()) {
+			Vector3 touchPos = new Vector3();
+		    touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+		    camera.unproject(touchPos);
+		    
 			for(LandPlot[] landRow : myGrid.getGrid()) {
 				for(LandPlot plot : landRow) {
-					if(plot.contains(Gdx.input.getX(), Gdx.input.getY()) && plot.isEmpty()) {
-						plot.plantCrop(new Wheat());
+					if(plot.contains(touchPos.x, touchPos.y) && plot.isEmpty()) {
+						System.out.println("Row: " + plot.getRow() + " Col: " + plot.getCol());
+						plot.plantCrop(inventory.getActiveItem());
 					}
 				}
-				
 			}
 		}
+		
+		inventory.update();
+		 
 		
 		
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		viewport.update(width, height);
 	}
 
 	@Override

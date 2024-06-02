@@ -9,11 +9,16 @@ public class LandPlot {
 	private Texture texture;
 	private int row, col;
 	
+	private static final int PLOT_SIZE = 32;
+    private static final int GAP_SIZE = 50;
+    private static final int GRID_SIZE = 6;
+	
 	public LandPlot(int r, int c) {
 		this.crop = null;
 		texture = new Texture(Gdx.files.internal("Minecraft-Dirt-Block 32x32.jpg"));
 		row = r;
 		col = c;
+		
 	}
 	
 	public void plantCrop(Crop seed) {
@@ -44,15 +49,15 @@ public class LandPlot {
 		}
 	}
 	
-	public boolean contains(int x, int y) {
-		return ((x-259)%50 <= 32 && x < 542 && (y-99) % 50 <=32 && y<381);
+	public boolean contains(float x, float y) {
+		return (x >= 800 - 259 - 50*(col) && x <= 800 - 259 - 50*(col) + 32 && y >= 99+50*(row) && y <= 99+50*(row) + 32);
 	}
 	
 	
 	public void draw(Batch batch) {
-		batch.draw(texture, 259+50*(col) , 99+50*(row), 32, 32); // aiden math
+		batch.draw(texture, 800 - 259 - 50*(col) , 99+50*(row), 32, 32); // aiden math
 		if(crop != null) {
-			crop.draw(batch, 259+50*(col) , 99+50*(row), 32, 32); // CHANGE THIS.
+			crop.draw(batch, 800 - 259 - 50*(col) , 99+50*(row), 32, 32); // CHANGE THIS.
 		}
 	}
 	

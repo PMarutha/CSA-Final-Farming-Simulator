@@ -3,6 +3,7 @@ package com.mygdx.game;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;;
@@ -11,19 +12,32 @@ public class Inventory {
 	private Crop[] slots;
 	private int[] quantities;
 	private int activeSlot;
+	
 	private Texture texture;
 	private TextureRegion costumes[];
 	
+	private boolean nextSlotPressed, previousSlotPressed;
+	
 	public Inventory() {
-		texture = new Texture(Gdx.files.internal("Inventory.png"));
+		texture = new Texture(Gdx.files.internal("Inventory (1).png"));
 		activeSlot = 0;
-		Crop[] slots = {null, new Carrot(), new Wheat(), new Potato()};
-		int[] quantities = {0, 0, 1, 0};
+		
+		costumes = new TextureRegion[4];
+		
+		TextureRegion[][] tmpFrames = TextureRegion.split(texture, 96, 96);
+        System.arraycopy(tmpFrames[0], 0, costumes, 0, 4);
+		
+		this.slots = new Crop[]{null, new Carrot(), new Wheat(), new Potato()};
+		this.quantities = new int[]{0, 0, 1, 0};
+		
+		nextSlotPressed = false;
+        previousSlotPressed = false;
 
 	}
 	
 	public void nextSlot() {
 		activeSlot = (activeSlot + 1) % slots.length;
+		
 	}
 	
 	public void previousSlot() {
@@ -31,7 +45,7 @@ public class Inventory {
 	}
 	
 	public Crop getActiveItem() {
-		return slots[activeSlot];
+		return slots[activeSlot].copy();
 	}
 	
 	public TextureRegion getTexture() {
@@ -39,7 +53,10 @@ public class Inventory {
 	}
 	
 	public void draw(Batch batch, float x, float y, float width, float height) {
-        batch.draw(getTexture(), x, y, width, height);
+		TextureRegion textureRegion = getTexture();
+		if (textureRegion != null) {
+            batch.draw(textureRegion, x, y, width, height);
+        }
     }
 	
 	public void addSeeds() {
@@ -48,6 +65,24 @@ public class Inventory {
 	
 	public void removeSeeds() {
 		quantities[activeSlot] -= 1;
+	}
+	
+	public void update() {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && !nextSlotPressed) {
+            nextSlot();
+            nextSlotPressed = true;
+        }
+        if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            nextSlotPressed = false;
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && !previousSlotPressed) {
+            previousSlot();
+            previousSlotPressed = true;
+        }
+        if (!Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            previousSlotPressed = false;
+        }
 	}
 
 }

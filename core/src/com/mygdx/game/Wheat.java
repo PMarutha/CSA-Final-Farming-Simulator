@@ -18,6 +18,10 @@ public class Wheat extends Crop {
 		return "wheat";
 	}
 	
+	public Wheat copy() {
+		return new Wheat();
+	}
+	
 	
 
 }

@@ -22,7 +22,7 @@ public abstract class Crop {
 	protected final int WORTH;
 	
 	protected float lastUpdateTime = TimeUtils.nanoTime();
-	protected final double STAGE_INTERVAL = 1000000000;
+	protected long STAGE_INTERVAL = 2000000000;
 	
 	public Crop(Texture texture, double growChance, int worth) {
 		this.texture = texture;
@@ -76,6 +76,8 @@ public abstract class Crop {
 	public void draw(Batch batch, float x, float y, float width, float height) {
         batch.draw(getTexture(), x, y, width, height);
     }
+
+	protected abstract Crop copy();
 	
 	
 	

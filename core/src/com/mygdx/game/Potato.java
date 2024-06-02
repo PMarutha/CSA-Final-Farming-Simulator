@@ -17,5 +17,9 @@ public class Potato extends Crop {
 	public String toString() {
 		return "potato";
 	}
+	
+	public Potato copy() {
+		return new Potato();
+	}
 
 }
