@@ -55,7 +55,7 @@ public class FarmScreen implements Screen {
 		
 		game.batch.begin();
 		myGrid.draw(game.batch);
-		inventory.draw(game.batch, 335, -50, 192, 192);
+		inventory.draw(game.batch, game.font, 335, -50, 192, 192); // FIX
 		game.batch.end();
 		
 		if(Gdx.input.justTouched()) {
@@ -65,9 +65,10 @@ public class FarmScreen implements Screen {
 		    
 			for(LandPlot[] landRow : myGrid.getGrid()) {
 				for(LandPlot plot : landRow) {
-					if(plot.contains(touchPos.x, touchPos.y) && plot.isEmpty()) {
+					if(plot.contains(touchPos.x, touchPos.y) && plot.isEmpty() && inventory.hasSeeds()) { // new
 						System.out.println("Row: " + plot.getRow() + " Col: " + plot.getCol());
-						plot.plantCrop(inventory.getActiveItem());
+						plot.plantCrop(inventory.getActiveItem().copy());
+						inventory.removeSeeds(); // new
 					}
 				}
 			}

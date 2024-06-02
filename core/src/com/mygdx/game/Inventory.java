@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;;
 
 public class Inventory {
@@ -45,18 +46,29 @@ public class Inventory {
 	}
 	
 	public Crop getActiveItem() {
-		return slots[activeSlot].copy();
+		return slots[activeSlot];
+	}
+	
+	public int getActiveSlot() {
+		return activeSlot;
+	}
+	
+	public boolean hasSeeds() {
+		return quantities[activeSlot] > 0;
 	}
 	
 	public TextureRegion getTexture() {
 		return costumes[activeSlot];
 	}
 	
-	public void draw(Batch batch, float x, float y, float width, float height) {
+	public void draw(Batch batch, BitmapFont font, float x, float y, float width, float height) {
 		TextureRegion textureRegion = getTexture();
 		if (textureRegion != null) {
             batch.draw(textureRegion, x, y, width, height);
         }
+		font.draw(batch, String.valueOf(quantities[1]), x + 48 + 30, y + 100);
+		font.draw(batch, String.valueOf(quantities[2]), x + 48*2 + 30, y + 100);
+		font.draw(batch, String.valueOf(quantities[3]), x + 48*3 + 30, y + 100);
     }
 	
 	public void addSeeds() {
