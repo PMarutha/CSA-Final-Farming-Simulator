@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class FarmingSimulator extends Game {
-	SpriteBatch batch;
+	public SpriteBatch batch;
 	BitmapFont font;
 	Texture img;
 	
-	Screen myFarmScreen, myShopScreen;
+	Screen myFarmScreen, myShopScreen, myMainScreen;
 	
 	@Override
 	public void create () {
@@ -22,8 +22,9 @@ public class FarmingSimulator extends Game {
 		
 		myFarmScreen = new FarmScreen(this);
 		myShopScreen = new ShopScreen(this);
+		myMainScreen = new MainScreen(this);
 		
-		this.setScreen(myFarmScreen);
+		this.setScreen(myMainScreen);
 	}
 
 	@Override

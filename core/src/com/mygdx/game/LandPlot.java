@@ -15,7 +15,7 @@ public class LandPlot {
 	
 	public LandPlot(int r, int c) {
 		this.crop = null;
-		texture = new Texture(Gdx.files.internal("Minecraft-Dirt-Block 32x32.jpg"));
+		texture = new Texture(Gdx.files.internal("Minecraft-Dirt-Block 32x32.jpg")); // CREDIT: Minecraft. Under educational use license.
 		row = r;
 		col = c;
 		
