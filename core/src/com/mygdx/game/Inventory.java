@@ -71,7 +71,18 @@ public class Inventory {
 		font.draw(batch, String.valueOf(quantities[3]), x + 48*3 + 30, y + 100);
     }
 	
-	public void addSeeds() {
+	public void addSeeds(String crop) {
+		switch(crop) {
+			case "wheat":
+				quantities[2]++;
+				break;
+			case "potato":
+				quantities[3]++;
+				break;
+			case "carrot":
+				quantities[1]++;
+				break;
+		}
 		
 	}
 	

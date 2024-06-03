@@ -21,14 +21,16 @@ public class LandPlot {
 		
 	}
 	
+	public Crop getCrop() {
+		return crop;
+	}
+	
 	public void plantCrop(Crop seed) {
 		crop = seed;
 	}
 	
-	public Crop harvestCrop() {
-		Crop temp = crop;
+	public void harvestCrop() {
 		crop = null;
-		return temp;
 	}
 	
 	public boolean isEmpty() {

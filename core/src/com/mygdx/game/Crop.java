@@ -15,7 +15,7 @@ public abstract class Crop {
 	
 	protected int growthStage;
 	protected int maxIndex;
-	protected final int harvestStage = 6;
+	protected final int harvestStage = 5;
 	protected final double GROW_CHANCE;
 	protected boolean readyToHarvest;
 	
@@ -41,7 +41,7 @@ public abstract class Crop {
 	public void update(float delta) {
 		if(TimeUtils.nanoTime() - lastUpdateTime > STAGE_INTERVAL) {
 			double dice = Math.random();
-			if(dice > GROW_CHANCE) {
+			if(dice < GROW_CHANCE) {
 				nextCostume();
 			}
 			lastUpdateTime = TimeUtils.nanoTime();
@@ -57,7 +57,7 @@ public abstract class Crop {
 	}
 	
 	public boolean readyToHarvest() {
-		return growthStage == harvestStage;
+		return growthStage >= harvestStage - 1;
 	}
 	
 	public TextureRegion getTexture() {
