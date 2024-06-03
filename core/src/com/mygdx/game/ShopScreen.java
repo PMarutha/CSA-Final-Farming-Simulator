@@ -35,9 +35,9 @@ public class ShopScreen implements Screen {
 
         
         shapeRender = new ShapeRenderer();
-        buyWheat = new Rectangle(100, 300, 182, 182);
-        buyPotato = new Rectangle(200, 300, 182, 182);
-        buyCarrot = new Rectangle(300, 280, 182, 182);
+        buyWheat = new Rectangle(100, 200, 182, 182);
+        buyPotato = new Rectangle(500, 200, 182, 182);
+        buyCarrot = new Rectangle(300, 180, 182, 182);
         
         farmButton = new Rectangle(60, 130, 64, 64);
     }
@@ -55,11 +55,15 @@ public class ShopScreen implements Screen {
         camera.update();
         
         game.batch.begin();
-        ((FarmScreen) game.getFarmScreen()).getBank().draw(game.batch, game.font, 100, 300);
+        ((FarmScreen) game.getFarmScreen()).getBank().draw(game.batch, game.font, 370, 140);
         game.batch.draw(new Texture(Gdx.files.internal("Farm Button.png")), farmButton.x, farmButton.y, farmButton.height, farmButton.width);
         game.batch.draw(new Texture(Gdx.files.internal("Wheat.png")), buyWheat.x, buyWheat.y, buyWheat.height, buyWheat.width);
         game.batch.draw(new Texture(Gdx.files.internal("Carrot.png")), buyCarrot.x, buyCarrot.y, buyCarrot.height, buyCarrot.width);
-        game.font.draw(game.batch, "Ye Olde Shoppe", 300, 300);
+        game.batch.draw(new Texture(Gdx.files.internal("Potato.png")), buyPotato.x, buyPotato.y, buyPotato.height, buyPotato.width);
+        game.font.draw(game.batch, "$" + new Wheat().getPrice(), buyWheat.x + 96, buyWheat.y + 40);
+        game.font.draw(game.batch, "$" + new Carrot().getPrice(), buyCarrot.x + 96, buyCarrot.y + 60);
+        game.font.draw(game.batch, "$" + new Potato().getPrice(), buyPotato.x + 96, buyPotato.y + 40);
+        
         game.batch.end();
         
         if(Gdx.input.justTouched()) {
@@ -71,19 +75,19 @@ public class ShopScreen implements Screen {
 				game.setScreen(game.getFarmScreen());
 			}
 		    
-		    if(buyWheat.contains(touchPos.x, touchPos.y)) {
+		    if(buyWheat.contains(touchPos.x, touchPos.y) && ((FarmScreen) game.getFarmScreen()).getBank().hasMoney(new Wheat().getPrice())) {
 		    	((FarmScreen) game.getFarmScreen()).getInventory().addSeeds("wheat");
-		    	((FarmScreen) game.getFarmScreen()).getBank().withdraw(new Wheat().getWorth());
+		    	((FarmScreen) game.getFarmScreen()).getBank().withdraw(new Wheat().getPrice());
 		    }
 		    
-		    if(buyPotato.contains(touchPos.x, touchPos.y)) {
+		    if(buyPotato.contains(touchPos.x, touchPos.y) && ((FarmScreen) game.getFarmScreen()).getBank().hasMoney(new Potato().getPrice())) {
 		    	((FarmScreen) game.getFarmScreen()).getInventory().addSeeds("potato");
-		    	((FarmScreen) game.getFarmScreen()).getBank().withdraw(new Potato().getWorth());
+		    	((FarmScreen) game.getFarmScreen()).getBank().withdraw(new Potato().getPrice());
 		    }
 		    
-		    if(buyCarrot.contains(touchPos.x, touchPos.y)) {
+		    if(buyCarrot.contains(touchPos.x, touchPos.y) && ((FarmScreen) game.getFarmScreen()).getBank().hasMoney(new Carrot().getPrice())) {
 		    	((FarmScreen) game.getFarmScreen()).getInventory().addSeeds("carrot");
-		    	((FarmScreen) game.getFarmScreen()).getBank().withdraw(new Carrot().getWorth());
+		    	((FarmScreen) game.getFarmScreen()).getBank().withdraw(new Carrot().getPrice());
 		    }
         }
         

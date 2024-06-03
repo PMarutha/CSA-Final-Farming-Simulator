@@ -11,24 +11,23 @@ public abstract class Crop {
 	protected Texture texture;
 	protected TextureRegion costumes[];
 	
-	protected Animation<TextureRegion> animation;
-	
 	protected int growthStage;
 	protected int maxIndex;
 	protected final int harvestStage = 5;
 	protected final double GROW_CHANCE;
 	protected boolean readyToHarvest;
 	
-	protected final int WORTH;
+	protected final int WORTH, PRICE;
 	
 	protected float lastUpdateTime = TimeUtils.nanoTime();
 	protected long STAGE_INTERVAL = 2000000000;
 	
-	public Crop(Texture texture, double growChance, int worth) {
+	public Crop(Texture texture, double growChance, int worth, int price) {
 		this.texture = texture;
 		growthStage = 0;
 		GROW_CHANCE = growChance;
 		WORTH = worth;
+		PRICE = price;
 		readyToHarvest = false;
 		
 		costumes = new TextureRegion[harvestStage];
@@ -70,6 +69,10 @@ public abstract class Crop {
 	
 	public int getWorth() {
 		return WORTH;
+	}
+	
+	public int getPrice() {
+		return PRICE;
 	}
 	
 	public void draw(Batch batch, float x, float y, float width, float height) {

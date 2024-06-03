@@ -69,7 +69,7 @@ public class FarmScreen implements Screen {
 		game.batch.begin();
 		myGrid.draw(game.batch);
 		inventory.draw(game.batch, game.font, 335, -50, 192, 192); 
-		bank.draw(game.batch, game.font, 100, 200);
+		bank.draw(game.batch, game.font, 150, 130);
 		game.batch.draw(new Texture(Gdx.files.internal("Shop.png")), shopButton.x, shopButton.y, shopButton.height, shopButton.width);
 		game.batch.end();
 		
@@ -107,11 +107,7 @@ public class FarmScreen implements Screen {
 		}
 		
 		inventory.update();
-		
-		
-		 
-		
-		
+
 	}
 	
 	public Inventory getInventory() {

@@ -23,6 +23,10 @@ public class Bank {
 		balance -= money;
 	}
 	
+	public boolean hasMoney(int money) {
+		return balance >= money;
+	}
+	
 	public void draw(Batch batch, BitmapFont font, float x, float y) {
 		font.draw(batch, "Bank: " + String.valueOf(balance), x, y);
 	}
